@@ -3,7 +3,7 @@ Generic Architecture for Robot Soccer Very Small Size
 
 # Motivation
 The Robot Soccer category Very Small Size is a sport which involves several areas of computational knoledge. Coordinate the flow of the information mantaining the consistensy and flexibility is hard to do.
-This library make the flow logic and leaves the important parts implementation to the developer. Also provides a sample working implementation. To use it you must add to your project the dependencies.
+This library make the flow logic and leaves the important parts implementation to the developer (Computer Vision, Strategy and Wireless Comunication). Also provides a sample working implementation. To use it you must add to your project the dependencies.
 
 # Dependencies
 - EmguCV
@@ -57,13 +57,14 @@ The information flow and it's content can be described as bellow:
 
 # Why Generic
 
-The scalability is a always wanted thing in software development. With generic types the information can change but the ''backend'' flow still the same.
-
+The scalability is a always wanted thing in software development. With generic types the information can change but the ''backend'' flow still the same. 
 
 # Control Behavior
 
-The control is a class wich
+The **Control** is a class wich use generic types to make it adaptable without need to change directly it's code.
+Once defined, the parameters adapt itself to receive the correct object types.
 
+The **Generic Types** defined are:
 - **Img:** The image Type to go to the Computer Vision Component
 - **VtoERobo:** Object containing the robot **Key-Points** to be used in Strategy Component
 - **EtoCRobo:** Object containing the **Decision** to be used in Wireless Comunication Component
@@ -71,7 +72,30 @@ The control is a class wich
 - **VtoECampo:** Object containing the field **Key-Points** to be used in Strategy Component
 - **PlaceToDraw:** Type of place to draw the processed image
 
-The control can do the following things
+## Used Interfaces
+
+The interfaces share the generic types with the **Control** class. It occurs because they are parameters used to execute the process inside it. The interfaces and they're respective Generic Types are:
+
+| Interface | Generic Type |
+| :----: | :----: | 
+| **IVideoCaptura** | Img, PlaceToDraw |
+| **IVisao**        | Img, VtoERobo, PlaceToDraw |
+| **IEstrategia**   | VtoERobo, EtoCRobo, VtoEBola, VtoECampo |
+| **IComunicacao**  | EtoCRobo |
+
+The **IVideoCaptura** is a segregation of the video capture and image processing. In this way the image to be analized have only one source responsible to provide the image from the enviorment or any other source desired. It also draw the original image into a PlaceToDraw reference.
+This component raises an Event every time it retrieves an image. Here can be handle, for example, the 
+
+```
+public interface IVideoCaptura<Img,PlaceToDraw>
+public interface IVisao<Img, VtoERobo, PlaceToDraw>
+public interface IEstrategia<VtoERobo, EtoCRobo, VtoEBola, VtoECampo>
+public interface IComunicacao<EtoCRobo>
+```
+
+
+
+
 
 -- Construction --
 
@@ -79,7 +103,7 @@ The control can do the following things
 The sample implementation defined as **SimpleVSSS** creates a sample **Control** object usig not generic types.
 
 | Generic         | Specific      |
-| --------------- | ------------- |
+| :-------------: | :-----------: |
 | **Img**         | Bitmap        |
 | **VtoERobo**    | InfoVtoERobo  |
 | **EtoCRobo**    | InfoEtoCRobo  |
