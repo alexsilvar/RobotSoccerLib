@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RobotSoccerLib.interno.ambiente.atuadores
+namespace RobotSoccerLib.externo.ambiente.atuadores
 {
     public class CapturaVideo : IVideoRetriever<Bitmap, PictureBox>
     {

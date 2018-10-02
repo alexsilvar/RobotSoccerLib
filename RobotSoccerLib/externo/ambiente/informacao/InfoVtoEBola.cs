@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RobotSoccerLib.interno.ambiente.informacao
+namespace RobotSoccerLib.externo.ambiente.informacao
 {
     public class InfoVtoEBola
     {

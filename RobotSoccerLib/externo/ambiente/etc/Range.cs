@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RobotSoccerLib.interno.ambiente.etc
+namespace RobotSoccerLib.externo.ambiente.etc
 {
     public class Range
     {

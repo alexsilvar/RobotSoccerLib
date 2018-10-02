@@ -1,12 +1,12 @@
 ﻿using RobotSoccerLib.externo.interfaces;
-using RobotSoccerLib.interno.ambiente.informacao;
+using RobotSoccerLib.externo.ambiente.informacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RobotSoccerLib.interno.ambiente.atuadores
+namespace RobotSoccerLib.externo.ambiente.atuadores
 {
     public class EstrategiaBasica : IEstrategia<InfoVtoERobo, InfoEtoCRobo, InfoVtoEBola, InfoVtoECampo>
     {

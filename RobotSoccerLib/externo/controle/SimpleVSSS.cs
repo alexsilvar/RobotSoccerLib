@@ -1,19 +1,8 @@
-﻿
-
+﻿using RobotSoccerLib.externo.ambiente.atuadores;
 using RobotSoccerLib.externo.ambiente.etc;
-using RobotSoccerLib.externo.controle;
 using RobotSoccerLib.externo.interfaces;
-using RobotSoccerLib.interno.ambiente.atuadores;
-using RobotSoccerLib.interno.ambiente.etc;
-using RobotSoccerLib.interno.ambiente.informacao;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using RobotSoccerLib.externo.ambiente.informacao;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RobotSoccerLib.externo.controle

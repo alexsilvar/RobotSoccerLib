@@ -7,6 +7,21 @@ using System.Threading.Tasks;
 
 namespace RobotSoccerLib.externo.interfaces
 {
+    /// <summary>
+    /// Interface que sugere o comportamento necessário para um Piloto da classe Controle
+    /// Usado para definir as 
+    /// </summary>
+    /// <typeparam name="Img">Tipo de imagem usada no processamento</typeparam>
+    /// <typeparam name="VtoERobo">Informação que vai da Visão para a Estrtégia</typeparam>
+    /// <typeparam name="EtoCRobo">Estratégia para Controle</typeparam>
+    /// <typeparam name="VtoEBola">Visão para Estratégia - Bola</typeparam>
+    /// <typeparam name="VtoECampo">Visão para Estratégia - Campo</typeparam>
+    /// <typeparam name="PlaceToDraw">Onde é desenhado a imagem - Ex.: PictureBox</typeparam>
+    /// <typeparam name="TCampo">Parametro para definir campo - Ex.: ParamCampo</typeparam>
+    /// <typeparam name="TBola">Parametro para definir bola - Ex.: ParamBola</typeparam>
+    /// <typeparam name="TRobo">Parametro para Criar robô - Ex. ParamRobo</typeparam>
+    /// <typeparam name="TCtrlMan">Parametro para controle manual de um Robô - Ex ParamCtrlMan</typeparam>
+    /// <typeparam name="TControle">Parametro para criar o Controle - Backend do processo</typeparam>
     public interface IPiloto<Img, VtoERobo, EtoCRobo, VtoEBola, VtoECampo, PlaceToDraw, TCampo, TBola, TRobo, TCtrlMan, TControle>
     {
 
