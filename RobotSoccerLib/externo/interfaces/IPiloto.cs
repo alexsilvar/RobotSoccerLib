@@ -30,35 +30,38 @@ namespace RobotSoccerLib.externo.interfaces
         /// </summary>
         /// <param name="paramControle">Parametros para Setup do Controle</param>
         /// <param name="placeToDraw">Local a desenhar Imagem Original Capturada</param>
-        void setupControle(TControle paramControle, ref PlaceToDraw placeToDraw);
+        //void setupControle(TControle paramControle, ref PlaceToDraw placeToDraw);
 
         /// <summary>
         /// Define o campo no Controle
         /// </summary>
         /// <param name="paramCampo">Parametros para detectar o campo</param>
         /// <param name="placeToDraw">Local a desenhar imagens processadas</param>
-        void setupCampo(TCampo paramCampo, ref PlaceToDraw placeToDraw);
+        //void setupCampo(TCampo paramCampo, ref PlaceToDraw placeToDraw);
 
         /// <summary>
         /// Define a bola no Controle
         /// </summary>
         /// <param name="paramBola">Parametros de configuração da bola</param>
         /// <param name="placeToDraw">local a desenhar as imagens processadas</param>
-        void setupBola(TBola paramBola, ref PlaceToDraw placeToDraw);
+        //void setupBola(TBola paramBola, ref PlaceToDraw placeToDraw);
 
         /// <summary>
         /// Cria um Robô no Controle
         /// </summary>
         /// <param name="paramRobo">Parametros para inicializar um robô</param>
         /// <param name="placeToDraw">Local a desenhar imagens processadas</param>
-        void novoRobo(TRobo paramRobo, ref PlaceToDraw placeToDraw);
+        //void setupRobo(TRobo paramRobo, ref PlaceToDraw placeToDraw);
 
         /// <summary>
         /// Executa o controle Manual
         /// </summary>
         /// <param name="paramCtrlMan">parametros de controle manual</param>
-        void controleManual(TCtrlMan paramCtrlMan);
+        //void controleManual(TCtrlMan paramCtrlMan);
 
-
+        void setupRobo(string id,
+            IVisao<Img, VtoERobo, PlaceToDraw> visao,
+            IEstrategia<VtoERobo, EtoCRobo, VtoEBola, VtoECampo> estrategia,
+            IComunicacao<EtoCRobo> comunicacao);
     }
 }

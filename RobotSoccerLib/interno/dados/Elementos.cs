@@ -14,7 +14,7 @@ namespace RobotSoccerLib.interno.dados
     /// <typeparam name="Img">Tipo de Imagem</typeparam>
     /// <typeparam name="VtoERobo">Informação da Visão para Estratégia</typeparam>
     /// <typeparam name="EtoCRobo">Informação da Estratégia para Comunicação sem fio</typeparam>
-    internal struct Robo<Img, VtoERobo, EtoCRobo, VtoEBola, VtoECampo, PlaceToDraw>
+    internal class Robo<Img, VtoERobo, EtoCRobo, VtoEBola, VtoECampo, PlaceToDraw>
     {
         private string id;
         private VtoERobo infoEstrat;
@@ -77,16 +77,16 @@ namespace RobotSoccerLib.interno.dados
 
     }
 
-    internal struct Bola<Img, VtoEBola, PlaceToDraw>
+    internal class Bola<Img, VtoEBola, PlaceToDraw>
     {
         private VtoEBola informacao;
         private IVisao<Img, VtoEBola, PlaceToDraw> visao;
 
-        public Bola(IVisao<Img, VtoEBola, PlaceToDraw> visao)
+        /*public Bola(IVisao<Img, VtoEBola, PlaceToDraw> visao)
         {
             informacao = default(VtoEBola);
             this.visao = visao;
-        }
+        }*/
 
         public VtoEBola Informacao
         {
@@ -106,16 +106,16 @@ namespace RobotSoccerLib.interno.dados
         }
     }
 
-    internal struct Campo<Img, VtoECampo, PlaceToDraw>
+    internal class Campo<Img, VtoECampo, PlaceToDraw>
     {
         private object informacao;
         private IVisao<Img, VtoECampo, PlaceToDraw> visao;
 
-        public Campo(object informacao, IVisao<Img, VtoECampo, PlaceToDraw> visao)
+        /*public Campo(object informacao, IVisao<Img, VtoECampo, PlaceToDraw> visao)
         {
             this.informacao = informacao;
             this.visao = visao;
-        }
+        }*/
 
         public IVisao<Img, VtoECampo, PlaceToDraw> Visao
         {

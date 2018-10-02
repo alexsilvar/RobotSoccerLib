@@ -56,7 +56,7 @@ namespace RobotSoccerLib.externo.controle
         }
         #endregion
 
-        #region Ambiente
+        #region Configuracao de Ambiente
         private bool proceduraIsRunning;
         private Dictionary<string, Robo<Img, VtoERobo, EtoCRobo, VtoEBola, VtoECampo, PlaceToDraw>> robos;
         private Bola<Img, VtoEBola, PlaceToDraw> bola;
@@ -64,19 +64,19 @@ namespace RobotSoccerLib.externo.controle
         private IVideoRetriever<Img, PlaceToDraw> capturaVideo;
 
 
-        public Img pegarImagemOriginal()
-        {
-            return imagem;
-        }
+        //public Img pegarImagemOriginal()
+        //{
+        //    return imagem;
+        //}
 
         /// <summary>
-        /// Cria um novo robô, também chama o método de conexão para estabelece-la
+        /// Cria um novo robô/Atualiza suas propriedades, também chama o método de conexão para estabelece-la
         /// </summary>
         /// <param name="id">Identificador único do robô</param>
         /// <param name="visao">Classe que processa Imagem</param>
         /// <param name="estrategia">Processa Estratégia</param>
         /// <param name="comunicacao">Comunicação sem fio</param>
-        public void novoRobo(
+        public void defineRobo(
             string id,
             IVisao<Img, VtoERobo, PlaceToDraw> visao,
             IEstrategia<VtoERobo, EtoCRobo, VtoEBola, VtoECampo> estrategia,
@@ -90,13 +90,24 @@ namespace RobotSoccerLib.externo.controle
                 }
             }
             var robo = new Robo<Img, VtoERobo, EtoCRobo, VtoEBola, VtoECampo, PlaceToDraw>(id, visao, estrategia, comunicacao);
-            try
-            {
-                robos.Add(id, robo);
-                robos[id].Comunicacao.conectar();
-            }
-            catch
-            { throw new Exception("Robo de ID:" + id + " já existente, Robos já cadastrados são: \n" + robos.Keys); }
+            lock (robos)
+                if (robos.ContainsKey(id))
+                {
+                    if (visao != null) robos[id].Visao = visao;
+                    if (estrategia != null) robos[id].Estrategia = estrategia;
+                    if (comunicacao != null)
+                    {
+                        robos[id].Comunicacao.desconectar();
+                        robos[id].Comunicacao = comunicacao;
+                        robos[id].Comunicacao.conectar();
+                    }
+                }
+                else
+                {
+                    robos.Add(id, robo);
+                    robos[id].Comunicacao.conectar();
+                }
+
         }
 
         public void executarProcedural()
@@ -162,17 +173,25 @@ namespace RobotSoccerLib.externo.controle
             }
             else
             {
-                if (!EqualityComparer<Bola<Img, VtoEBola, PlaceToDraw>>.Default.Equals(bola, default(Bola<Img, VtoEBola, PlaceToDraw>)))
-                    if (!EqualityComparer<Bola<Img, VtoEBola, PlaceToDraw>>.Default.Equals(bola, default(Bola<Img, VtoEBola, PlaceToDraw>)))
-                        bola.Visao.processarImagem(imagem);
+                if (bola != null)
+                    if (bola.Visao != null)
+                        lock (bola)
+                            bola.Visao.processarImagem(imagem);
 
-                if (!EqualityComparer<Campo<Img, VtoECampo, PlaceToDraw>>.Default.Equals(campo, default(Campo<Img, VtoECampo, PlaceToDraw>)))
-                    if (!EqualityComparer<Campo<Img, VtoECampo, PlaceToDraw>>.Default.Equals(campo, default(Campo<Img, VtoECampo, PlaceToDraw>)))
-                        bola.Visao.processarImagem(imagem);
-                foreach (var robo in robos)
-                {
-                    robo.Value.visaoParaEstrategia(imagem);
-                }
+                if (campo != null)
+                    if (campo.Visao != null)
+                        lock (campo)
+                            campo.Visao.processarImagem(imagem);
+                lock (robos)
+                    foreach (var robo in robos)
+                    {
+                        try
+                        {
+                            if (robo.Value != null)
+                                robo.Value.visaoParaEstrategia(imagem);
+                        }
+                        catch { }
+                    }
             }
         }
 

@@ -9,12 +9,6 @@ namespace RobotSoccerLib.externo.ambiente.informacao
 {
     public class InfoVtoEBola
     {
-        private Point posicao;
-
-        public Point Posicao
-        {
-            get { return posicao; }
-            set { posicao = value; }
-        }
+        public Point Posicao { get; set; }
     }
 }

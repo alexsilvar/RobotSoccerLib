@@ -9,19 +9,7 @@ namespace RobotSoccerLib.externo.ambiente.informacao
 {
     public class InfoVtoERobo
     {
-        private Point posicaoIndividual;
-        private Point posicaoTime;
-
-        public Point PosicaoIndividual
-        {
-            get { return posicaoIndividual; }
-            set { posicaoIndividual = value; }
-        }
-
-        public Point PosicaoTime
-        {
-            get { return posicaoTime; }
-            set { posicaoTime = value; }
-        }
+        public Point PosicaoIndividual { get; set; }
+        public Point PosicaoTime { get; set; }
     }
 }

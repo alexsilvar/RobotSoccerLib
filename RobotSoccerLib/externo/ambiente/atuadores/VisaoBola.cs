@@ -36,7 +36,7 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             imagemHsv = new Image<Hsv, byte>(imagem);
             imagemGrayBola = imagemHsv.InRange(range.Lowerrange, range.Upperrange);
 
-            pBox.Image = imagemGrayBola.Bitmap;
+            pBox.Image = imagemGrayBola.Resize(pBox.Width, pBox.Height, Emgu.CV.CvEnum.Inter.Linear).Bitmap;
 
             modifica.X = 3;
             modifica.Y = 3;

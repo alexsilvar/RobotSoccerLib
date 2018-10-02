@@ -9,48 +9,11 @@ namespace RobotSoccerLib.externo.ambiente.informacao
 {
     public class InfoVtoECampo
     {
-        private Rectangle gol;
-        private Rectangle golAdversario;
-        private Rectangle grandeArea;
-        private Rectangle grandeAreaAdversario;
-        private Rectangle meioCampo;
-        private Rectangle areaTotal;
-
-
-        public Rectangle Gol
-        {
-            get { return gol; }
-            set { gol = value; }
-        }
-
-        public Rectangle GolAdversario
-        {
-            get { return golAdversario; }
-            set { golAdversario = value; }
-        }
-
-        public Rectangle GrandeArea
-        {
-            get { return grandeArea; }
-            set { grandeArea = value; }
-        }
-
-        public Rectangle GrandeAreaAdversario
-        {
-            get { return grandeAreaAdversario; }
-            set { grandeAreaAdversario = value; }
-        }
-
-        public Rectangle MeioCampo
-        {
-            get { return meioCampo; }
-            set { meioCampo = value; }
-        }
-
-        public Rectangle AreaTotal
-        {
-            get { return areaTotal; }
-            set { areaTotal = value; }
-        }
+        public Rectangle Gol { get; set; }
+        public Rectangle GolAdversario { get; set; }
+        public Rectangle GrandeArea { get; set; }
+        public Rectangle GrandeAreaAdversario { get; set; }
+        public Rectangle MeioCampo { get; set; }
+        public Rectangle AreaTotal { get; set; }
     }
 }

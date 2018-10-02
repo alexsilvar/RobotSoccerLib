@@ -33,8 +33,8 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
         public InfoVtoERobo processarImagem(Bitmap imagem)
         {
             imagemHsv = new Image<Hsv, byte>(imagem);
-            imagemHsv._Dilate(3);
-            imagemHsv._Erode(3);
+            imagemHsv._SmoothGaussian(3, 3, 1, 1);
+            CvInvoke.MedianBlur(imagemHsv, imagemHsv, 3);
             imagemGrayIndividual = imagemHsv.InRange(rangeIndividual.Lowerrange, rangeIndividual.Upperrange);
             //infoVtoERobo.PosicaoIndividual = centroideDeCorIndividual(imagemGrayIndividual);
             imagemGrayTime = imagemHsv.InRange(rangeIndividual.Lowerrange, rangeIndividual.Upperrange);

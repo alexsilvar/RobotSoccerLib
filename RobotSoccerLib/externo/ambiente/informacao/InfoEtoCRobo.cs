@@ -8,19 +8,7 @@ namespace RobotSoccerLib.externo.ambiente.informacao
 {
     public class InfoEtoCRobo
     {
-        private int rodaDireita;
-        private int rodaEsquerda;
-
-        public int RodaDireita
-        {
-            get { return rodaDireita; }
-            set { rodaDireita = value; }
-        }
-
-        public int RodaEsquerda
-        {
-            get { return rodaEsquerda; }
-            set { rodaEsquerda = value; }
-        }
+        public int RodaDireita { get; set; }
+        public int RodaEsquerda { get; set; }
     }
 }
