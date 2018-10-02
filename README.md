@@ -99,19 +99,51 @@ public interface IComunicacao<EtoCRobo>
 
 -- Construction --
 
-# Sample Implementation
-The sample implementation defined as **SimpleVSSS** creates a sample **Control** object usig not generic types.
+# The Pilot Class
 
-| Generic         | Specific      |
-| :-------------: | :-----------: |
-| **Img**         | Bitmap        |
-| **VtoERobo**    | InfoVtoERobo  |
-| **EtoCRobo**    | InfoEtoCRobo  |
-| **VtoEBola**    | InfoVtoEBola  |
-| **VtoECampo**   | InfoVtoECampo |
-| **PlaceToDraw** | PictureBox    |
+The **Pilot** is the class wich defines which are the specific **Control** dependencies. Here is instantiated a Control object.
+The Pilot will lock the Controle generic types and define the specific data types. Basically the pilot setup the generic Control with specifc types.
+
+Alone the Pilot cannot do anything and the Control cannot work without the Pilot. 
+
+A pilot need to be developed with some of yours dependencies or at least use someone specific types.
+Here is defined a Control member variable using the defined by Pilot types liike:
+
+```
+Controle<MyImgType, MyVtoERobo, MyEtoCRobo, MyVtoEBola, MyVtoECampo, MyPlaceToDraw> controle;
+```
+
+The "My" Types are defined by the Pilot **Developer**. It must be created providing the information type and 
 
 
+# Sample Pilot Implementation - SimpleVSSS
+This implementation is an example of how it is easy to create a **Pilot** wich does the connection between UI and the process.
+This Pilot comes with some sample implementation and can be setted up like:
+
+```
+public void setupCampo(Dictionary<int, Rectangle> paramCampo, ref PictureBox placeToDraw)
+public void setupBola(Range paramBola, ref PictureBox placeToDraw)
+public void novoRoboBasico(string papel, Range rangeRobo, Range rangeTime, string portaCom, ref PictureBox placeToDraw)
+public void controleManual(string id, int velRodaD, int velRodaE)
+public void novoCustomRobo(string id, 
+            IVisao<Bitmap, InfoVtoERobo, PictureBox> visao,
+            IEstrategia<InfoVtoERobo, InfoEtoCRobo, InfoVtoEBola, InfoVtoECampo> estrategia,
+            IComunicacao<InfoEtoCRobo> comunicacao,
+            ref PictureBox placeToDraw)
+```
+
+The sample implementation defined as **SimpleVSSS** creates a sample **Control** object usig the following not generic types.
+
+| Generic         | Specific      | Dependency           |
+| :-------------: | :-----------: | :------------------: |
+| **Img**         | Bitmap        | System.Drawing       |
+| **VtoERobo**    | InfoVtoERobo  | RobotSoccerLib       |
+| **EtoCRobo**    | InfoEtoCRobo  | RobotSoccerLib       |
+| **VtoEBola**    | InfoVtoEBola  | RobotSoccerLib       |
+| **VtoECampo**   | InfoVtoECampo | RobotSoccerLib       |
+| **PlaceToDraw** | PictureBox    | System.Windows.Forms |
+
+It also provides functions to set 
 
 
 
