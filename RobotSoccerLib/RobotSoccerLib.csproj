@@ -57,11 +57,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="externo\ambiente\etc\Parametros.cs" />
     <Compile Include="externo\controle\SimpleVSSS.cs" />
     <Compile Include="externo\controle\Controle.cs" />
     <Compile Include="externo\controle\ControleProp.cs" />
     <Compile Include="externo\interfaces\IEstrategia.cs" />
     <Compile Include="externo\interfaces\IComunicacao.cs" />
+    <Compile Include="externo\interfaces\IPiloto.cs" />
     <Compile Include="externo\interfaces\IVideoRetriever.cs" />
     <Compile Include="externo\interfaces\IVisao.cs" />
     <Compile Include="externo\ambiente\atuadores\CapturaVideo.cs" />

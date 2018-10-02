@@ -13,15 +13,18 @@ using System.Windows.Forms;
 
 namespace RobotSoccerLib.externo.controle
 {
+
     /// <summary>
     /// Controle de todo o processo e Enviorment Setup do Futebol de Robos
     /// </summary>
     /// <typeparam name="Img">Tipo de Imagem</typeparam>
     /// <typeparam name="VtoERobo">Informação da Visão para Estrategia</typeparam>
     /// <typeparam name="EtoCRobo">Informacao da Estratégia para Expedidor</typeparam>
+    /// <typeparam name="VtoEBola">Informação da Visão para Estrategia</typeparam>
+    /// <typeparam name="VtoECampo">Informação da Visão para Estrategia</typeparam>
+    /// <typeparam name="PlaceToDraw">Informação da Visão para Estrategia</typeparam>
     public class Controle<Img, VtoERobo, EtoCRobo, VtoEBola, VtoECampo, PlaceToDraw>
     {
-
 
         public Controle(IVideoRetriever<Img, PlaceToDraw> capturaVideo) : this()
         {
@@ -33,10 +36,7 @@ namespace RobotSoccerLib.externo.controle
             robos = new Dictionary<string, Robo<Img, VtoERobo, EtoCRobo, VtoEBola, VtoECampo, PlaceToDraw>>();
             bola = new Bola<Img, VtoEBola, PlaceToDraw>();
             campo = new Campo<Img, VtoECampo, PlaceToDraw>();
-
         }
-
-
 
         #region Captura de Vídeo
         public void iniciaCaptura()
@@ -175,7 +175,6 @@ namespace RobotSoccerLib.externo.controle
                 }
             }
         }
-
 
 
         public void controleManual(string id, EtoCRobo infoEtoCRobo)
