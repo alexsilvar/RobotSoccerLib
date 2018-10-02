@@ -72,6 +72,14 @@ The **Generic Types** defined are:
 - **VtoECampo:** Object containing the field **Key-Points** to be used in Strategy Component
 - **PlaceToDraw:** Type of place to draw the processed image
 
+## Control Constructor
+
+The Controle constructor is where the video capturer is provided:
+
+```
+public Controle(IVideoRetriever<Img, PlaceToDraw> capturaVideo)
+```
+
 ## Used Interfaces
 
 The interfaces share the generic types with the **Control** class. It occurs because they are parameters used to execute the process inside it. The interfaces and they're respective Generic Types are:
@@ -93,24 +101,20 @@ public interface IEstrategia<VtoERobo, EtoCRobo, VtoEBola, VtoECampo>
 public interface IComunicacao<EtoCRobo>
 ```
 
-
-
-
-
--- Construction --
-
 # The Pilot Class
 
-The **Pilot** is the class wich defines which are the specific **Control** dependencies. Here is instantiated a Control object.
-The Pilot will lock the Controle generic types and define the specific data types. Basically the pilot setup the generic Control with specifc types.
+The **Pilot** is the class where the **Control** generic types are defined specifically. Here is instantiated a Control object.
 
-Alone the Pilot cannot do anything and the Control cannot work without the Pilot. 
+Alone the Pilot cannot do anything and the Control cannot work without the Pilot.
 
-A pilot need to be developed with some of yours dependencies or at least use someone specific types.
-Here is defined a Control member variable using the defined by Pilot types liike:
+A pilot need to be developed after define it's dependencies. Thease dependencies can be any kind of object. 
+For example the generic **PlaceToDraw** can be a PictureBox from System.Drawing library, and **VtoERobo** a custom developed class or struct.
 
+## Setting up the Control
+
+Now the pilot must turn on the engine (get ready to fly... soccer). So a Control member variable must be created using the desired types.
 ```
-Controle<MyImgType, MyVtoERobo, MyEtoCRobo, MyVtoEBola, MyVtoECampo, MyPlaceToDraw> controle;
+Controle<MyImg, MyVtoERobo, MyEtoCRobo, MyVtoEBola, MyVtoECampo, MyPlaceToDraw> controle;
 ```
 
 The "My" Types are defined by the Pilot **Developer**. It must be created providing the information type and 
@@ -126,13 +130,13 @@ public void setupBola(Range paramBola, ref PictureBox placeToDraw)
 public void novoRoboBasico(string papel, Range rangeRobo, Range rangeTime, string portaCom, ref PictureBox placeToDraw)
 public void controleManual(string id, int velRodaD, int velRodaE)
 public void novoCustomRobo(string id, 
-            IVisao<Bitmap, InfoVtoERobo, PictureBox> visao,
-            IEstrategia<InfoVtoERobo, InfoEtoCRobo, InfoVtoEBola, InfoVtoECampo> estrategia,
-            IComunicacao<InfoEtoCRobo> comunicacao,
+            IVisao<Bitmap, InfoVtoERobo, PictureBox> vRobo,
+            IEstrategia<InfoVtoERobo, InfoEtoCRobo, InfoVtoEBola, InfoVtoECampo> eRobo,
+            IComunicacao<InfoEtoCRobo> cRobo,
             ref PictureBox placeToDraw)
 ```
 
-The sample implementation defined as **SimpleVSSS** creates a sample **Control** object usig the following not generic types.
+The sample implementation defined as **SimpleVSSS** creates a sample **Control** object usig the following specific types.
 
 | Generic         | Specific      | Dependency           |
 | :-------------: | :-----------: | :------------------: |
@@ -143,7 +147,23 @@ The sample implementation defined as **SimpleVSSS** creates a sample **Control**
 | **VtoECampo**   | InfoVtoECampo | RobotSoccerLib       |
 | **PlaceToDraw** | PictureBox    | System.Windows.Forms |
 
-It also provides functions to set 
+# Using the SimpleVSSS
+
+To use the Simple VSSS you must create your UI and provide the correct parameters to, for example, show the captured and processed images or manually control a robot.
+
+## Setup SimpleVSSS
+
+To default setup the enviorment you must use the constructor passing the camId (Integer number, 0 in most of cases). 
+
+Now you have two options, use the basic setup using the constrains provided (see wiki in the future for futher information) or the custom setup providing the preconfigured Objects wich implements the parameters interfaces. The first does my implementation of IVideoCaptura, IVisao, IEstrategia and IComunicacao. The second you use your own implementation and they can be combined( used together)
+
+### Default Use
+
+-- Construction--
+
+### Custom Use
+
+--Construction--
 
 
 
