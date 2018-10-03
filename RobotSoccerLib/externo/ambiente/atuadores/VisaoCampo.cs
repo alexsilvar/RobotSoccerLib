@@ -27,6 +27,8 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             informacao.AreaTotal = areaTotal;
         }
 
+        public bool Desenhar { get; set; } = true;
+
         public void defineLugarDesenho(ref PictureBox place)
         {
             pbox = place;

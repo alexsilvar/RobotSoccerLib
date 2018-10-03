@@ -40,7 +40,8 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             imagemGrayTime = imagemHsv.InRange(rangeIndividual.Lowerrange, rangeIndividual.Upperrange);
             //infoVtoERobo.PosicaoTime = centroideDeCorTime(imagemGrayTime, infoVtoERobo.PosicaoIndividual);
 
-            pBoxProcessado.Image = imagemGrayIndividual.ToBitmap(pBoxProcessado.Width, pBoxProcessado.Height);
+            if (Desenhar)
+                pBoxProcessado.Image = imagemGrayIndividual.ToBitmap(pBoxProcessado.Width, pBoxProcessado.Height);
 
             return infoVtoERobo;
         }
@@ -63,6 +64,7 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
 
         private List<Point> time = new List<Point>();
 
+        public bool Desenhar { get; set; } = true;
 
         private Point centroideDeCorTime(Image<Gray, Byte> imgGray, Point individual)
         {

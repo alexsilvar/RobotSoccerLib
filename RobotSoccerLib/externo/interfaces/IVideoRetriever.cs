@@ -25,5 +25,7 @@ namespace RobotSoccerLib.externo.interfaces
         void definePlaceToDraw(ref PlaceToDraw placeToDraw);
 
         event EventHandler<Img> imagemPega;
+
+        bool Desenha { get; set; }
     }
 }

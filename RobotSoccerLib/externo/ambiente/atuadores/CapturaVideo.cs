@@ -3,6 +3,7 @@ using Emgu.CV.Structure;
 using RobotSoccerLib.externo.interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,9 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
         private Mat imagemCapturada;
         private bool captureInProgress;
         private PictureBox placeToDraw;
+        private Bitmap capturaBitmap;
+
+        public bool Desenha { get; set; } = true;
 
         public event EventHandler<Bitmap> imagemPega;
 
@@ -32,13 +36,16 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
         }
 
 
+
         private void ProcessFrame(object sender, EventArgs e)
         {
             if (camera != null && camera.Ptr != IntPtr.Zero)
             {
                 camera.Retrieve(imagemCapturada);
-                placeToDraw.Image = imagemCapturada.ToImage<Bgr, byte>().ToBitmap(placeToDraw.Width, placeToDraw.Height);
+                capturaBitmap = imagemCapturada.ToImage<Bgr, byte>().ToBitmap(placeToDraw.Width, placeToDraw.Height);
                 imagemPega?.Invoke(this, imagemCapturada.Bitmap);
+                if (Desenha)
+                    placeToDraw.Image = capturaBitmap;
             }
         }
 

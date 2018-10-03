@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.ComponentModel;
-
-
 using RobotSoccerLib.interno.dados;
 using RobotSoccerLib.externo.interfaces;
 using System.Windows.Forms;
@@ -107,7 +105,6 @@ namespace RobotSoccerLib.externo.controle
                     robos.Add(id, robo);
                     robos[id].Comunicacao.conectar();
                 }
-
         }
 
         public void executarProcedural()
@@ -156,6 +153,22 @@ namespace RobotSoccerLib.externo.controle
         private VtoECampo infoCampo;
 
 
+        public void desenha(bool desenhar)
+        {
+            capturaVideo.Desenha = desenhar;
+            lock (bola)
+                if (bola != null && bola.Visao != null)
+                    bola.Visao.Desenhar = desenhar;
+            lock (campo)
+                if (campo != null && campo.Visao != null)
+                    campo.Visao.Desenhar = desenhar;
+            lock (robos)
+                foreach (var robo in robos)
+                {
+                    if (robo.Value.Visao != null)
+                        robo.Value.Visao.Desenhar = desenhar;
+                }
+        }
 
         private void novaImagem(object sender, Img e)
         {

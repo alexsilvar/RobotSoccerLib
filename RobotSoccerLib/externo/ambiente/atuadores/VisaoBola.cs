@@ -20,7 +20,7 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
         private Image<Hsv, byte> imagemHsv;
         private Image<Gray, Byte> imagemGrayBola;
         private PictureBox pBox;
-
+        public bool Desenhar { get; set; } = true;
 
         public VisaoBola(etc.Range range)
         {
@@ -36,7 +36,8 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             imagemHsv = new Image<Hsv, byte>(imagem);
             imagemGrayBola = imagemHsv.InRange(range.Lowerrange, range.Upperrange);
 
-            pBox.Image = imagemGrayBola.Resize(pBox.Width, pBox.Height, Emgu.CV.CvEnum.Inter.Linear).Bitmap;
+            if (Desenhar)
+                pBox.Image = imagemGrayBola.Resize(pBox.Width, pBox.Height, Emgu.CV.CvEnum.Inter.Linear).Bitmap;
 
             modifica.X = 3;
             modifica.Y = 3;

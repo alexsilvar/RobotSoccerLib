@@ -13,7 +13,7 @@ namespace RobotSoccerLib.externo.interfaces
     /// </summary>
     /// <typeparam name="Img">Tipo de Imagem utilizada para processar</typeparam>
     /// <typeparam name="VtoE">Informacao da [V]isão para[t] [E]stratégia</typeparam>
-    public interface IVisao<Img, VtoE, placeToDraw>
+    public interface IVisao<Img, VtoE, PlaceToDraw>
     {
 
         /// <summary>
@@ -29,9 +29,12 @@ namespace RobotSoccerLib.externo.interfaces
         /// <returns>Imagens Processadas</returns>
         //Img[] imagensProcessadas();
 
-        void defineLugarDesenho(ref placeToDraw place);
+        void defineLugarDesenho(ref PlaceToDraw place);
 
-        //event EventHandler<Img[]> imagensProcessadas;
+        /// <summary>
+        /// Irá ou não desenhar no placeToDraw
+        /// </summary>
+        bool Desenhar { get; set; }
 
     }
 }

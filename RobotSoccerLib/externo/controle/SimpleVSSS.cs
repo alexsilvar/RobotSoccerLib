@@ -43,6 +43,14 @@ namespace RobotSoccerLib.externo.controle
             controle.definirBola(vBola, ref placeToDraw);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="papel">Constantes: ATACANTE,GOLEIRO,ZAGUEIRO</param>
+        /// <param name="rangeRobo">Range de Cor individual</param>
+        /// <param name="rangeTime">Range de Cor do Time</param>
+        /// <param name="portaCom">Porta serial de comunicação com Robô</param>
+        /// <param name="placeToDraw">Local para desenhar imagem processada do robô</param>
         public void novoRoboBasico(string papel, Range rangeRobo, Range rangeTime, string portaCom, ref PictureBox placeToDraw)
         {
             VisaoRobo vRobo = null;
@@ -73,7 +81,7 @@ namespace RobotSoccerLib.externo.controle
             }
         }
 
-        public void novoCustomRobo(string id, IVisao<Bitmap, InfoVtoERobo, PictureBox> visao,
+        public void defineCustomRobo(string id, IVisao<Bitmap, InfoVtoERobo, PictureBox> visao,
             IEstrategia<InfoVtoERobo, InfoEtoCRobo, InfoVtoEBola, InfoVtoECampo> estrategia,
             IComunicacao<InfoEtoCRobo> comunicacao,
             ref PictureBox placeToDraw)
@@ -88,6 +96,11 @@ namespace RobotSoccerLib.externo.controle
             info.RodaDireita = velRodaD;
             info.RodaEsquerda = velRodaE;
             controle.controleManual(id, info);
+        }
+
+        public void exibirImagens(bool exibir)
+        {
+            controle.desenha(exibir);
         }
 
         public SimpleVSSS(int camId, ref PictureBox placeToDraw)
