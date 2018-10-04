@@ -9,8 +9,13 @@ This library make the flow logic and leaves the important parts implementation t
 - EmguCV
 
 # Game Parts
-It's process wich occur in Software can be segregated in tree diferent areas, Computer Vision, Strategy and wireless Comunication.
+It's process which occur in Software can be segregated in tree diferent areas, Computer Vision, Strategy and wireless Comunication.
 Between each of them flows the information of the game.
+
+## Overview
+The system can be overviewed in the image, the messages (yellow) which floats through the actuators(blue).
+
+![alt text](https://github.com/alexsilvar/RobotSoccerLib/tree/master/images/actAndMsgs.png)
 
 ## Computer Vision
 
