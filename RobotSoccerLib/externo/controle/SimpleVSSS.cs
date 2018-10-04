@@ -44,7 +44,7 @@ namespace RobotSoccerLib.externo.controle
         }
 
         /// <summary>
-        /// 
+        /// Cria um robo pre definido segundo as constantes
         /// </summary>
         /// <param name="papel">Constantes: ATACANTE,GOLEIRO,ZAGUEIRO</param>
         /// <param name="rangeRobo">Range de Cor individual</param>
@@ -81,13 +81,20 @@ namespace RobotSoccerLib.externo.controle
             }
         }
 
-        public void defineCustomRobo(string id, IVisao<Bitmap, InfoVtoERobo, PictureBox> visao,
+        public void defineCustomRobo(
+            string id,
+            IVisao<Bitmap, InfoVtoERobo, PictureBox> visao,
             IEstrategia<InfoVtoERobo, InfoEtoCRobo, InfoVtoEBola, InfoVtoECampo> estrategia,
             IComunicacao<InfoEtoCRobo> comunicacao,
             ref PictureBox placeToDraw)
         {
             visao.defineLugarDesenho(ref placeToDraw);
             controle.defineRobo(id, visao, estrategia, comunicacao);
+        }
+
+        public void vaiPraPonto(string id, int posX, int posY)
+        {
+            controle.defineRobo(id, null, new EstrategiaBasica(posX, posY), null);
         }
 
         public void controleManual(string id, int velRodaD, int velRodaE)

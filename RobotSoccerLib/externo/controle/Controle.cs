@@ -157,10 +157,10 @@ namespace RobotSoccerLib.externo.controle
         {
             capturaVideo.Desenha = desenhar;
             lock (bola)
-                if (bola != null && bola.Visao != null)
+                if (bola.Visao != null)
                     bola.Visao.Desenhar = desenhar;
             lock (campo)
-                if (campo != null && campo.Visao != null)
+                if (campo.Visao != null)
                     campo.Visao.Desenhar = desenhar;
             lock (robos)
                 foreach (var robo in robos)
@@ -186,15 +186,13 @@ namespace RobotSoccerLib.externo.controle
             }
             else
             {
-                if (bola != null)
-                    if (bola.Visao != null)
-                        lock (bola)
-                            bola.Visao.processarImagem(imagem);
+                if (bola.Visao != null)
+                    lock (bola)
+                        bola.Visao.processarImagem(imagem);
 
-                if (campo != null)
-                    if (campo.Visao != null)
-                        lock (campo)
-                            campo.Visao.processarImagem(imagem);
+                if (campo.Visao != null)
+                    lock (campo)
+                        campo.Visao.processarImagem(imagem);
                 lock (robos)
                     foreach (var robo in robos)
                     {
