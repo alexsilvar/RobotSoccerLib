@@ -15,7 +15,7 @@ Between each of them flows the information of the game.
 ## Overview
 The system can be overviewed in the image, the messages (yellow) which floats through the actuators(blue).
 
-![alt text](https://github.com/alexsilvar/RobotSoccerLib/tree/master/images/actAndMsgs.png)
+<img src="https://raw.githubusercontent.com/alexsilvar/RobotSoccerLib/master/images/actAndMsgs.png"  width="600" height="400">
 
 ## Computer Vision
 
