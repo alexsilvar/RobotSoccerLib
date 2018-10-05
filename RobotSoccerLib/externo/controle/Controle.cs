@@ -107,7 +107,7 @@ namespace RobotSoccerLib.externo.controle
                 }
         }
 
-        public void executarProcedural()
+        public void iniciarPartida()
         {
             proceduraIsRunning = true;
         }
@@ -115,7 +115,7 @@ namespace RobotSoccerLib.externo.controle
         /// <summary>
         /// Para a execução de jogo se estiver ocorrendo
         /// </summary>
-        internal void pararExecucao()
+        internal void pararPartida()
         {
             proceduraIsRunning = false;
         }
@@ -124,7 +124,7 @@ namespace RobotSoccerLib.externo.controle
         /// Para o robô e desconecta, então deleta
         /// </summary>
         /// <param name="id">Identificador do Robô</param>
-        public void deletaRobo(string id)
+        public void removeRobo(string id)
         {
             robos[id].Comunicacao.parar();
             robos[id].Comunicacao.desconectar();

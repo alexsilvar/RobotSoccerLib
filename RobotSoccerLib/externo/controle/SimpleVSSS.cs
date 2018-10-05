@@ -5,6 +5,7 @@ using RobotSoccerLib.externo.ambiente.informacao;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System;
 
 namespace RobotSoccerLib.externo.controle
 {
@@ -92,9 +93,14 @@ namespace RobotSoccerLib.externo.controle
             controle.defineRobo(id, visao, estrategia, comunicacao);
         }
 
+        public void removeRobo(string id)
+        {
+            controle.removeRobo(id);
+        }
+
         public void vaiPraPonto(string id, int posX, int posY)
         {
-            controle.defineRobo(id, null, new EstrategiaBasica(posX, posY), null);
+            controle.defineRobo(id, null, new EstrategiaSeguePonto(posX, posY), null);
         }
 
         public void controleManual(string id, int velRodaD, int velRodaE)
@@ -102,7 +108,18 @@ namespace RobotSoccerLib.externo.controle
             InfoEtoCRobo info = new InfoEtoCRobo();
             info.RodaDireita = velRodaD;
             info.RodaEsquerda = velRodaE;
-            controle.controleManual(id, info);
+            try { controle.controleManual(id, info); } catch (Exception ex) { throw ex; }
+
+        }
+
+        public void iniciarPartida()
+        {
+            controle.iniciarPartida();
+        }
+
+        public void pararPartida()
+        {
+            controle.pararPartida();
         }
 
         public void exibirImagens(bool exibir)

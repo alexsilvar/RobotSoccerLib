@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="externo\ambiente\atuadores\EstrategiaSeguePonto.cs" />
     <Compile Include="externo\controle\SimpleVSSS.cs" />
     <Compile Include="externo\controle\Controle.cs" />
     <Compile Include="externo\interfaces\IEstrategia.cs" />
