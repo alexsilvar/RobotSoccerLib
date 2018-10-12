@@ -34,14 +34,15 @@ namespace RobotSoccerLib.externo.controle
                 paramCampo[MEIO_CAMPO],
                 paramCampo[AREA_TOTAL]
             );
-            controle.definirCampo(vCampo, ref placeToDraw);
+            controle.definirCampo(vCampo);
+            controle.defineLugarDesenhoCampo(ref placeToDraw);
         }
 
         public void setupBola(Range paramBola, ref PictureBox placeToDraw)
         {
             var vBola = new VisaoBola(paramBola);
-
-            controle.definirBola(vBola, ref placeToDraw);
+            controle.definirBola(vBola);
+            controle.defineLugarDesenhoBola(ref placeToDraw);
         }
 
         /// <summary>
@@ -77,8 +78,8 @@ namespace RobotSoccerLib.externo.controle
             }
             if (vRobo != null)
             {
-                vRobo.defineLugarDesenho(ref placeToDraw);
                 controle.defineRobo(papel, vRobo, eBasica, cBluetooth);
+                controle.defineLugarDesenhoRobo(papel, ref placeToDraw);
             }
         }
 
@@ -89,19 +90,17 @@ namespace RobotSoccerLib.externo.controle
             IComunicacao<InfoEtoCRobo> comunicacao,
             ref PictureBox placeToDraw)
         {
-            visao.defineLugarDesenho(ref placeToDraw);
+            //visao.defineLugarDesenho(ref placeToDraw);
             controle.defineRobo(id, visao, estrategia, comunicacao);
+            if (placeToDraw != null)
+                controle.defineLugarDesenhoRobo(id, ref placeToDraw);
         }
 
         public void removeRobo(string id)
-        {
-            controle.removeRobo(id);
-        }
+        { controle.removeRobo(id); }
 
         public void vaiPraPonto(string id, int posX, int posY)
-        {
-            controle.defineRobo(id, null, new EstrategiaSeguePonto(posX, posY), null);
-        }
+        { controle.defineRobo(id, null, new EstrategiaSeguePonto(posX, posY), null); }
 
         public void controleManual(string id, int velRodaD, int velRodaE)
         {
@@ -109,23 +108,16 @@ namespace RobotSoccerLib.externo.controle
             info.RodaDireita = velRodaD;
             info.RodaEsquerda = velRodaE;
             try { controle.controleManual(id, info); } catch (Exception ex) { throw ex; }
-
         }
 
         public void iniciarPartida()
-        {
-            controle.iniciarPartida();
-        }
+        { controle.iniciarPartida(); }
 
         public void pararPartida()
-        {
-            controle.pararPartida();
-        }
+        { controle.pararPartida(); }
 
         public void exibirImagens(bool exibir)
-        {
-            controle.desenha(exibir);
-        }
+        { controle.desenha(exibir); }
 
         public SimpleVSSS(int camId, ref PictureBox placeToDraw)
         {

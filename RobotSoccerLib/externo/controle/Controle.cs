@@ -62,10 +62,6 @@ namespace RobotSoccerLib.externo.controle
         private IVideoRetriever<Img, PlaceToDraw> capturaVideo;
 
 
-        //public Img pegarImagemOriginal()
-        //{
-        //    return imagem;
-        //}
 
         /// <summary>
         /// Cria um novo robô/Atualiza suas propriedades, também chama o método de conexão para estabelece-la
@@ -107,6 +103,24 @@ namespace RobotSoccerLib.externo.controle
                 }
         }
 
+        public void defineLugarDesenhoRobo(string id, ref PlaceToDraw pToDraw)
+        {
+            if (robos[id].Visao != null)
+                robos[id].Visao.defineLugarDesenho(ref pToDraw);
+        }
+
+        public void defineLugarDesenhoBola(ref PlaceToDraw pToDraw)
+        {
+            if (bola.Visao != null)
+                bola.Visao.defineLugarDesenho(ref pToDraw);
+        }
+
+        public void defineLugarDesenhoCampo(ref PlaceToDraw pToDraw)
+        {
+            if (campo.Visao != null)
+                campo.Visao.defineLugarDesenho(ref pToDraw);
+        }
+
         public void iniciarPartida()
         {
             proceduraIsRunning = true;
@@ -126,25 +140,25 @@ namespace RobotSoccerLib.externo.controle
         /// <param name="id">Identificador do Robô</param>
         public void removeRobo(string id)
         {
-            robos[id].Comunicacao.parar();
-            robos[id].Comunicacao.desconectar();
-            var robo = robos.Remove(id);
+            lock (robos)
+                try
+                {
+                    robos[id].Comunicacao.parar();
+                    robos[id].Comunicacao.desconectar();
+                    var robo = robos.Remove(id);
+                }
+                catch { }
         }
 
-        public void definirCampo(IVisao<Img, VtoECampo, PlaceToDraw> visaoCampo, ref PlaceToDraw ptD)
+        public void definirCampo(IVisao<Img, VtoECampo, PlaceToDraw> visaoCampo)
         {
             campo.Visao = visaoCampo;
-            campo.Visao.defineLugarDesenho(ref ptD);
         }
 
-        public void definirBola(IVisao<Img, VtoEBola, PlaceToDraw> visaoBola, ref PlaceToDraw ptD)
+        public void definirBola(IVisao<Img, VtoEBola, PlaceToDraw> visaoBola)
         {
             bola.Visao = visaoBola;
-            bola.Visao.defineLugarDesenho(ref ptD);
         }
-
-
-
         #endregion
 
         #region Processo

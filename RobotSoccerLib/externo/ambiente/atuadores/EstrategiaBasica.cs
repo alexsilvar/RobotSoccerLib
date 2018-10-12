@@ -14,7 +14,7 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
     {
         private InfoEtoCRobo info;
 
-        private Point centroRobo;
+        //private Point centroRobo;
         public EstrategiaBasica()
         {
             info = new InfoEtoCRobo();

@@ -20,8 +20,8 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
 
         public void conectar()
         {
-            //if (!portaCom.IsOpen)
-            //  portaCom.Open();
+            if (!portaCom.IsOpen)
+                try { portaCom.Open(); } catch { }
         }
 
         public void desconectar()
@@ -34,6 +34,8 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
         public void enviarMensagem(InfoEtoCRobo informacao)
         {
             mensagem = protocolar(informacao.RodaEsquerda, informacao.RodaDireita);
+            if (!portaCom.IsOpen)
+                conectar();
             portaCom.Write(mensagem);
         }
 
@@ -42,19 +44,22 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             //Utiliza o sinal para determinar se é para frente ou para trás
             string dirE, dirD;
 
+            //Decide direção
             dirD = rodaDireita > 0 ? "F" : "T";
             rodaDireita = rodaDireita > 255 ? 255 : rodaDireita < -255 ? -255 : rodaDireita;
 
             dirE = rodaEsquerda > 0 ? "F" : "T";
             rodaEsquerda = rodaEsquerda > 255 ? 255 : rodaEsquerda < -255 ? -255 : rodaEsquerda;
 
+            //Formata para NNNXNNNX - X = F ou T N = numero
             return Math.Abs(rodaEsquerda).ToString().PadLeft(3, '0') + dirE +
                    Math.Abs(rodaDireita).ToString().PadLeft(3, '0') + dirD;
         }
 
         public void parar()
         {
-            portaCom.Write("000F000F");
+            if (portaCom.IsOpen)
+                portaCom.Write("000F000F");
         }
     }
 }
