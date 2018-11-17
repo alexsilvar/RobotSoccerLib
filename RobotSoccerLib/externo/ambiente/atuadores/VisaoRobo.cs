@@ -33,15 +33,33 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
         public InfoVtoERobo processarImagem(Bitmap imagem)
         {
             imagemHsv = new Image<Hsv, byte>(imagem);
-            imagemHsv._SmoothGaussian(3, 3, 1, 1);
-            CvInvoke.MedianBlur(imagemHsv, imagemHsv, 3);
+            //imagemHsv._SmoothGaussian(3, 3, 1, 1);
+            //CvInvoke.MedianBlur(imagemHsv, imagemHsv, 3);
+
+
+
             imagemGrayIndividual = imagemHsv.InRange(rangeIndividual.Lowerrange, rangeIndividual.Upperrange);
-            //infoVtoERobo.PosicaoIndividual = centroideDeCorIndividual(imagemGrayIndividual);
-            imagemGrayTime = imagemHsv.InRange(rangeIndividual.Lowerrange, rangeIndividual.Upperrange);
-            //infoVtoERobo.PosicaoTime = centroideDeCorTime(imagemGrayTime, infoVtoERobo.PosicaoIndividual);
+            imagemGrayTime = imagemHsv.InRange(rangeTime.Lowerrange, rangeTime.Upperrange);
+
+            imagemGrayIndividual._SmoothGaussian(3, 3, 1, 1);
+            imagemGrayIndividual._Erode(1);
+            imagemGrayIndividual._Dilate(2);
+
+            imagemGrayTime._SmoothGaussian(3, 3, 1, 1);
+            imagemGrayTime._Erode(1);
+            imagemGrayTime._Dilate(2);
+
+            infoVtoERobo.PosicaoIndividual = centroideDeCorIndividual(imagemGrayIndividual);
+            infoVtoERobo.PosicaoTime = centroideDeCorTime(imagemGrayTime, infoVtoERobo.PosicaoIndividual);
+            //CvInvoke.PutText(imagemHsv, "(" + infoVtoERobo.PosicaoIndividual.X + "," + infoVtoERobo.PosicaoIndividual.Y + ")", infoVtoERobo.PosicaoIndividual, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
+            //CvInvoke.PutText(imagemHsv, "(" + infoVtoERobo.PosicaoTime.X + "," + infoVtoERobo.PosicaoTime.Y + ")", infoVtoERobo.PosicaoTime, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
+
+
+
+            CvInvoke.Line(imagemHsv, infoVtoERobo.PosicaoIndividual, infoVtoERobo.PosicaoTime, new MCvScalar(110, 100, 100), 2);
 
             if (Desenhar)
-                pBoxProcessado.Image = imagemGrayIndividual.ToBitmap(pBoxProcessado.Width, pBoxProcessado.Height);
+                pBoxProcessado.Image = /*imagemGrayIndividual*/imagemHsv.ToBitmap(pBoxProcessado.Width, pBoxProcessado.Height);
 
             return infoVtoERobo;
         }
@@ -59,6 +77,9 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             int posicao = filterSize(blobList);
             centro.X = (int)blobList[posicao].Centroid.X;
             centro.Y = (int)blobList[posicao].Centroid.Y;
+
+            detectedBlobs.Clear();
+
             return centro;
         }
 
@@ -76,6 +97,7 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             {
                 time.Add(new Point((int)blob.Centroid.X, (int)blob.Centroid.Y));
             }
+            detectedBlobs.Clear();
             return nearest(time, infoVtoERobo.PosicaoIndividual);
         }
 

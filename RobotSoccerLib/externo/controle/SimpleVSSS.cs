@@ -83,6 +83,46 @@ namespace RobotSoccerLib.externo.controle
             }
         }
 
+
+        /// <summary>
+        /// Robô segue os pontos passados
+        /// </summary>
+        /// <param name="papel">Use constantes Atacante Goleiro e Zagueiro</param>
+        /// <param name="rangeRobo">Cor individual</param>
+        /// <param name="rangeTime">Cor Time</param>
+        /// <param name="portaCom">Porta de comunicação</param>
+        /// <param name="places">Conjunto de pontos a visitar</param>
+        /// <param name="placeToDraw">Local para desenhar</param>
+        public void novoRoboSeguePontos(string papel, Range rangeRobo, Range rangeTime, string portaCom, Point[] places, ref PictureBox placeToDraw)
+        {
+            VisaoRobo vRobo = null;
+            EstrategiaSeguePontos eSeguePont = null;
+            ComunicadorBuetooth cBluetooth = null;
+            switch (papel)
+            {
+                case ATACANTE:
+                    vRobo = new VisaoRobo(rangeRobo, rangeTime);
+                    eSeguePont = new EstrategiaSeguePontos(places);
+                    cBluetooth = new ComunicadorBuetooth(portaCom);
+                    break;
+                case ZAGUEIRO:
+                    vRobo = new VisaoRobo(rangeRobo, rangeTime);
+                    eSeguePont = new EstrategiaSeguePontos(places);
+                    cBluetooth = new ComunicadorBuetooth(portaCom);
+                    break;
+                case GOLEIRO:
+                    vRobo = new VisaoRobo(rangeRobo, rangeTime);
+                    eSeguePont = new EstrategiaSeguePontos(places);
+                    cBluetooth = new ComunicadorBuetooth(portaCom);
+                    break;
+            }
+            if (vRobo != null)
+            {
+                controle.defineRobo(papel, vRobo, eSeguePont, cBluetooth);
+                controle.defineLugarDesenhoRobo(papel, ref placeToDraw);
+            }
+        }
+
         public void defineCustomRobo(
             string id,
             IVisao<Bitmap, InfoVtoERobo, PictureBox> visao,
@@ -100,7 +140,7 @@ namespace RobotSoccerLib.externo.controle
         { controle.removeRobo(id); }
 
         public void vaiPraPonto(string id, int posX, int posY)
-        { controle.defineRobo(id, null, new EstrategiaSeguePonto(posX, posY), null); }
+        { controle.defineRobo(id, null, new EstrategiaSeguePontos(new Point[] { new Point(posX, posY) }), null); }
 
         public void controleManual(string id, int velRodaD, int velRodaE)
         {

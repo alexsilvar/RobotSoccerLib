@@ -189,8 +189,10 @@ namespace RobotSoccerLib.externo.controle
             imagem = e;
             if (proceduraIsRunning)
             {
-                infoBola = bola.Visao.processarImagem(imagem);
-                infoCampo = campo.Visao.processarImagem(imagem);
+                if (bola != null && bola.Visao != null)
+                    infoBola = bola.Visao.processarImagem(imagem);
+                if (campo != null && campo.Visao != null)
+                    infoCampo = campo.Visao.processarImagem(imagem);
                 foreach (var robo in robos)
                 {
                     robo.Value.visaoParaEstrategia(imagem);
