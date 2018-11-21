@@ -31,16 +31,26 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
         }
 
         private string mensagem;
+        private string mensagemAntiga = null;
         public void enviarMensagem(InfoEtoCRobo informacao)
         {
             mensagem = protocolar(informacao.RodaEsquerda, informacao.RodaDireita);
             if (!portaCom.IsOpen)
                 conectar();
-            portaCom.Write(mensagem);
+            if (mensagemAntiga == null || !mensagem.Equals(mensagemAntiga))
+            {
+                portaCom.Write(mensagem);
+                mensagemAntiga = mensagem;
+            }
+
         }
 
         private string protocolar(int rodaEsquerda, int rodaDireita)
         {
+            if (rodaEsquerda == -555 && rodaDireita == -555)
+            {
+                return "255S255S";
+            }
             //Utiliza o sinal para determinar se é para frente ou para trás
             string dirE, dirD;
 

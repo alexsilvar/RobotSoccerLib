@@ -45,6 +45,8 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
 
             CvInvoke.PutText(imagemHsv, "(" + info.Posicao.X + "," + info.Posicao.Y + ")", info.Posicao, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
 
+            
+
             if (Desenhar)
                 pBox.Image = /*imagemGrayBola*/imagemHsv.Resize(pBox.Width, pBox.Height, Emgu.CV.CvEnum.Inter.Linear).Bitmap;
             //info.Posicao = modifica;

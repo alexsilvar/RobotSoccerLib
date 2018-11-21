@@ -11,5 +11,8 @@ namespace RobotSoccerLib.externo.ambiente.informacao
     {
         public Point PosicaoIndividual { get; set; }
         public Point PosicaoTime { get; set; }
+
+
+        public override string ToString() { return "I: " + PosicaoIndividual + " | T: " + PosicaoTime; }
     }
 }

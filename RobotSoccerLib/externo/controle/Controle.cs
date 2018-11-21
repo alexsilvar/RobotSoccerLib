@@ -132,6 +132,11 @@ namespace RobotSoccerLib.externo.controle
         internal void pararPartida()
         {
             proceduraIsRunning = false;
+            lock (robos)
+                foreach (var robo in robos)
+                {
+                    robo.Value.Comunicacao.parar();
+                }
         }
 
         /// <summary>
@@ -205,7 +210,6 @@ namespace RobotSoccerLib.externo.controle
                 if (bola.Visao != null)
                     lock (bola)
                         bola.Visao.processarImagem(imagem);
-
                 if (campo.Visao != null)
                     lock (campo)
                         campo.Visao.processarImagem(imagem);

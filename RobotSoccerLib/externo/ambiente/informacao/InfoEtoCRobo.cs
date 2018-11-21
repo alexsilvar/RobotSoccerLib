@@ -10,5 +10,8 @@ namespace RobotSoccerLib.externo.ambiente.informacao
     {
         public int RodaDireita { get; set; }
         public int RodaEsquerda { get; set; }
+
+        public override string ToString()
+        { return "E:" + RodaEsquerda + ",D:" + RodaDireita; }
     }
 }

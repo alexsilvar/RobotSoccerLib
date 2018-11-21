@@ -49,17 +49,23 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             imagemGrayTime._Erode(1);
             imagemGrayTime._Dilate(2);
 
+            //Detectando os pontos das etiquetas dos robôs
             infoVtoERobo.PosicaoIndividual = centroideDeCorIndividual(imagemGrayIndividual);
             infoVtoERobo.PosicaoTime = centroideDeCorTime(imagemGrayTime, infoVtoERobo.PosicaoIndividual);
-            //CvInvoke.PutText(imagemHsv, "(" + infoVtoERobo.PosicaoIndividual.X + "," + infoVtoERobo.PosicaoIndividual.Y + ")", infoVtoERobo.PosicaoIndividual, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
+
+            //Dsenhando coisas na imagem
+            CvInvoke.PutText(imagemHsv, "(" + ((infoVtoERobo.PosicaoIndividual.X + infoVtoERobo.PosicaoTime.X) / 2) +
+                "," + (imagem.Height - ((infoVtoERobo.PosicaoIndividual.Y + infoVtoERobo.PosicaoTime.Y) / 2)) + ")", infoVtoERobo.PosicaoIndividual, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
             //CvInvoke.PutText(imagemHsv, "(" + infoVtoERobo.PosicaoTime.X + "," + infoVtoERobo.PosicaoTime.Y + ")", infoVtoERobo.PosicaoTime, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
 
-
+            CvInvoke.PutText(imagemHsv, "(" + imagem.Width + "," + imagem.Height + ")", new Point(imagem.Width / 2, imagem.Height / 2), Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
 
             CvInvoke.Line(imagemHsv, infoVtoERobo.PosicaoIndividual, infoVtoERobo.PosicaoTime, new MCvScalar(110, 100, 100), 2);
 
-            if (Desenhar)
+            if (Desenhar && pBoxProcessado != null)
                 pBoxProcessado.Image = /*imagemGrayIndividual*/imagemHsv.ToBitmap(pBoxProcessado.Width, pBoxProcessado.Height);
+
+
 
             return infoVtoERobo;
         }
