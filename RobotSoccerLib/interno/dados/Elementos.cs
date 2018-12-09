@@ -64,7 +64,6 @@ namespace RobotSoccerLib.interno.dados
 
         internal void estrategiaParaExpedidor(VtoEBola infoBola, VtoECampo infoCampo)
         {
-            Console.WriteLine(infoEstrat.ToString() + "\tTime:" + DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
             infoExped = estrategia.executarEstrategia(infoEstrat, infoBola, infoCampo);
         }
         internal void expedidorParaRobo()

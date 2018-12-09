@@ -21,6 +21,7 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
         private int direcao;
 
         private Point posicaoAnterior;
+        private int prevCont = 0;
         const int DIREITA = 0, ESQUERDA = 1, ALINHADO = 2;
         private Queue<Point> destinos;
 
@@ -54,7 +55,7 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
                 {
                     centroRobo.X = (infoRobo.PosicaoIndividual.X + infoRobo.PosicaoTime.X) / 2;
                     centroRobo.Y = ((480 - infoRobo.PosicaoIndividual.Y) + (480 - infoRobo.PosicaoTime.Y)) / 2;
-                    if (distancia(centroRobo, destino) < 15)
+                    if (distancia(centroRobo, destino) < 10)
                     {
                         if (destinos.Count > 0)
                         {
@@ -65,6 +66,9 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
                         info.RodaEsquerda = -555;
                         return info;
                     }
+
+                    //Registro de tempo
+                    Console.WriteLine(centroRobo + "\tTime:" + DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
 
                     //Decide pra qual lado acelerar
                     /*if (distancia(new Point(infoRobo.PosicaoIndividual.X, 480 - infoRobo.PosicaoIndividual.Y), destino) <
@@ -99,20 +103,42 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
 
                     if (theta > 20)
                     {
-                        if (side(a, b) == DIREITA)
+                        int distObjetivo = distancia(centroRobo, destino);
+                        if (distObjetivo < 100)
                         {
-                            info.RodaDireita = -40;
-                            info.RodaEsquerda = 40;
+                            if (side(a, b) == DIREITA)
+                            {
+                                info.RodaDireita = -50;
+                                info.RodaEsquerda = 50;
+                            }
+                            else
+                            {
+                                info.RodaDireita = 50;
+                                info.RodaEsquerda = -50;
+                            }
                         }
                         else
                         {
-                            info.RodaDireita = 40;
-                            info.RodaEsquerda = -40;
+                            if (theta > 60)
+                            {
+                                if (side(a, b) == DIREITA)
+                                {
+                                    info.RodaDireita = -50;
+                                    info.RodaEsquerda = 50;
+                                }
+                                else
+                                {
+                                    info.RodaDireita = 50;
+                                    info.RodaEsquerda = -50;
+                                }
+                            }
                         }
+
 
                     }
                     else
                     {
+
                         int distObjetivo = distancia(centroRobo, destino);
                         if (distObjetivo > 200)
                         {
@@ -137,7 +163,7 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
                 info.RodaDireita = 0;
                 info.RodaEsquerda = 0;
             }
-            //Console.WriteLine("Velocidades: " + info.RodaEsquerda + " , " + info.RodaDireita);
+            //Console.WriteLine("Velocidades: " + info.RodaEsquerda + " , " + info.RodaDireita);            
             Console.WriteLine("|");
 
             return info;

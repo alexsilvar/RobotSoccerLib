@@ -55,17 +55,15 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
 
             //Dsenhando coisas na imagem
             CvInvoke.PutText(imagemHsv, "(" + ((infoVtoERobo.PosicaoIndividual.X + infoVtoERobo.PosicaoTime.X) / 2) +
-                "," + (imagem.Height - ((infoVtoERobo.PosicaoIndividual.Y + infoVtoERobo.PosicaoTime.Y) / 2)) + ")", infoVtoERobo.PosicaoIndividual, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
+                "," + (imagem.Height - ((infoVtoERobo.PosicaoIndividual.Y + infoVtoERobo.PosicaoTime.Y) / 2)) + ")", infoVtoERobo.PosicaoIndividual, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar(), 2);
             //CvInvoke.PutText(imagemHsv, "(" + infoVtoERobo.PosicaoTime.X + "," + infoVtoERobo.PosicaoTime.Y + ")", infoVtoERobo.PosicaoTime, Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
 
-            CvInvoke.PutText(imagemHsv, "(" + imagem.Width + "," + imagem.Height + ")", new Point(imagem.Width / 2, imagem.Height / 2), Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
+            //CvInvoke.PutText(imagemHsv, "(" + imagem.Width + "," + imagem.Height + ")", new Point(imagem.Width / 2, imagem.Height / 2), Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new MCvScalar());
 
             CvInvoke.Line(imagemHsv, infoVtoERobo.PosicaoIndividual, infoVtoERobo.PosicaoTime, new MCvScalar(110, 100, 100), 2);
 
             if (Desenhar && pBoxProcessado != null)
                 pBoxProcessado.Image = /*imagemGrayIndividual*/imagemHsv.ToBitmap(pBoxProcessado.Width, pBoxProcessado.Height);
-
-
 
             return infoVtoERobo;
         }
