@@ -42,10 +42,12 @@ namespace RobotSoccerLib.externo.ambiente.atuadores
             if (camera != null && camera.Ptr != IntPtr.Zero)
             {
                 camera.Retrieve(imagemCapturada);
-                capturaBitmap = imagemCapturada.ToImage<Bgr, byte>().ToBitmap(placeToDraw.Width, placeToDraw.Height);
                 imagemPega?.Invoke(this, imagemCapturada.Bitmap);
                 if (Desenha)
+                {
+                    capturaBitmap = imagemCapturada.ToImage<Bgr, byte>().ToBitmap(placeToDraw.Width, placeToDraw.Height);
                     placeToDraw.Image = capturaBitmap;
+                }
             }
         }
 
